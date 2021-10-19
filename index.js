@@ -28,17 +28,17 @@ app.get('/', (req, res) => {
     res.render('home', { nombrePagina: 'BuscadorDePerrosOnline'});
 });   
 
-app.get('/catalogoRazas', async (req, res) => {
+app.get('/catalogoRazas', (req, res) => {
     //res.send('Pagina Principal');
     res.render('home', { nombrePagina: 'CatalogoRazas'});
 }); 
 
-app.get('/resultadoBusqueda', async (req, res) => {
+app.get('/resultadoBusqueda', (req, res) => {
     //res.send('Pagina Principal');
     res.render('home', { nombrePagina: 'ResultadoBusqueda'});
 }); 
 
-app.get('*', async (req, res) => {
+app.get('*', (req, res) => {
     //muestra plantilla 404 en las rutas no especificadas
     //res.render('404');
     res.render('error404.hbs');
