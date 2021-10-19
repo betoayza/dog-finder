@@ -1,0 +1,34 @@
+
+{{> intro titulo="Buscador de perros 2.0"}}
+
+{{> menu}}
+
+{{> header}}
+
+{{> inicioMain}}
+
+<!-- Push down content on small screens -->
+<div class="w3-hide-large" style="margin-top:83px"></div>
+
+<h2>Bievenido al mejor portal de busquedas de perros</h2>
+<p>Busque raza perro:</p>
+<form id="formAgregarAlumno" method="POST" action="/resultadoBusqueda">
+    <label for="raza">Raza: </label>
+    <input type="text" id="raza" name="raza">    
+    <br><br>
+    <input type="reset">
+    <input type="submit" value="Buscar">
+</form>
+<!-- <script src="data/alumnos.js"></script> -->
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+  <span class="w3-button w3-black w3-xlarge w3-display-topright">×</span>
+  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+    <img id="img01" class="w3-image">
+    <p id="caption"></p>
+  </div>
+</div>
+
+{{> footer}}
+{{> cierre}}
