@@ -1,4 +1,6 @@
 //ESTE ARCHIVO SE CONECTA CON LA API DE RAZAS
+//(solo van las definiciones de las funciones
+//La invocacion va en index.js)
 
 const handleFetch = (url) => {
    return fetch(url)
@@ -20,7 +22,8 @@ const buscarRazaPorNombre = async nombreRaza => {
       .catch(error => {console.error(error);})
 };
 
-buscarRazaPorNombre(nombreFormulario);
+module.exports = buscarRazaPorNombre;
    
+
 
 

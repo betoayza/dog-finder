@@ -1,6 +1,7 @@
 const express = require ('express');
 const hbs = require('hbs');
 const app = express();
+const {buscarRazaPorNombre} = require(`${__dirname}/data/manejarBusqueda`);
 
 // Establece motor de plantillas
 app.set('view engine', 'hbs');
@@ -35,6 +36,8 @@ app.get('/catalogoRazas', (req, res) => {
 
 app.get('/resultadoBusqueda', (req, res) => {
     //res.send('Pagina Principal');
+    //const {}
+
     res.render('home', { nombrePagina: 'ResultadoBusqueda'});
 }); 
 
