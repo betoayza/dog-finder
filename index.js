@@ -1,7 +1,7 @@
 const express = require ('express');
 const hbs = require('hbs');
 const app = express();
-const {buscarRazaPorNombre} = require(`${__dirname}/data/manejarBusqueda`);
+const {buscarRazaPorNombre} = require(`${__dirname}/data/manejarBusqueda.js`);
 
 // Establece motor de plantillas
 app.set('view engine', 'hbs');
@@ -31,14 +31,14 @@ app.get('/', (req, res) => {
 
 app.get('/catalogoRazas', (req, res) => {
     //res.send('Pagina Principal');
-    res.render('home', { nombrePagina: 'CatalogoRazas'});
+    res.render('catalogoRazas', { nombrePagina: 'CatalogoRazas'});
 }); 
 
 app.get('/resultadoBusqueda', (req, res) => {
     //res.send('Pagina Principal');
     //const {}
 
-    res.render('home', { nombrePagina: 'ResultadoBusqueda'});
+    res.render('resultadoBusqueda', { nombrePagina: 'ResultadoBusqueda'});
 }); 
 
 app.get('*', (req, res) => {
@@ -49,22 +49,14 @@ app.get('*', (req, res) => {
 
 //RUTAS PARA EL SERVIDOR
 //petition post para agregar recurso al servidor
-app.post('/resultadoBusqueda', (req, res) => {         
-    try {
-        const { //extraigo del body los campos que me interesan (todos) de la petición post
-            codigo,  //si voy a mandar por formulario, este campo debe coincidir con la propiedad "name" del input
-            legajo,  //idem
-            apellido, //idem
-            nombre    //idem
+app.post('/resultadoBusqueda', async (req, res) => {    //en post vale el res.send()     
+    try {        
+        const {
+            raza //debe coincidir con el name del input
         } = req.body; 
-        altaAlumno({ //creo un nuevo objeto alumno con los campos extraidos 
-            "cod_carrera": codigo,
-            "legajo": legajo,
-            "apellido": apellido,
-            "nombre": nombre
-        });
-        console.log(alumnos);
-        res.send('Alta exitosa!');        
+        const resultado = await buscarRazaPorNombre(raza);
+        console.log(resultado);
+        //res.send(resultado);        
     } catch (error) {
         res.send(error);
     }

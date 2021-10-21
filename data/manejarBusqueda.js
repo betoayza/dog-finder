@@ -7,7 +7,7 @@ const handleFetch = (url) => {
       .then(handleError)
 };
 
-const handleError = (response) => {
+const handleError = response => {
    if(!response.ok){
       throw new Error(response.statusText);
    }
@@ -15,14 +15,14 @@ const handleError = (response) => {
 };
 
 const buscarRazaPorNombre = async nombreRaza => {
-   const url = 'https://dog.ceo/dog-api/';
-   return await handleFetch(url)
-      .then(res => {console.log(res.json());})
-      .then(resJSON => {return res.json();})
+   const url = `https://dog.ceo/api/breed/${nombreRaza}/images/random`;
+   handleFetch(url)
+      .then(res => {console.log(res.json()); return res;})
+      //.then(resJSON => {return res.json();})
       .catch(error => {console.error(error);})
 };
 
-module.exports = buscarRazaPorNombre;
+module.exports = { buscarRazaPorNombre };
    
 
 
