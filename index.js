@@ -1,7 +1,7 @@
 const express = require ('express');
 const hbs = require('hbs');
 const app = express();
-const {buscarRazaPorNombre} = require(`${__dirname}/data/manejarBusqueda.js`);
+const { buscarRazaPorNombre } = require(`${__dirname}/data/manejarBusqueda`);
 
 // Establece motor de plantillas
 app.set('view engine', 'hbs');
@@ -36,23 +36,21 @@ app.get('/catalogoRazas', (req, res) => {
 
 app.get('/resultadoBusqueda', (req, res) => {
     //res.send('Pagina Principal');
-    //const {}
-
     res.render('resultadoBusqueda', { nombrePagina: 'ResultadoBusqueda'});
 }); 
 
 app.get('*', (req, res) => {
     //muestra plantilla 404 en las rutas no especificadas
     //res.render('404');
-    res.render('error404.hbs');
+    res.render('error404');
 });
 
 //RUTAS PARA EL SERVIDOR
 //petition post para agregar recurso al servidor
-app.post('/resultadoBusqueda', async (req, res) => {    //en post vale el res.send()     
+app.post('/home', async (req, res) => {    //en post vale el res.send()     
     try {        
         const {
-            raza //debe coincidir con el name del input
+            raza, //debe coincidir con el name del input
         } = req.body; 
         const resultado = await buscarRazaPorNombre(raza);
         console.log(resultado);
