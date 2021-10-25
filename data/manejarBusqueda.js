@@ -3,32 +3,25 @@
 //La invocacion va en index.js)
 
 import fetch from "node-fetch";
+//const fetch = require('fetch');
 
 const handleFetch = async url => {
-   //fetch ya de por si retorna una Promesa
-   const res = fetch(url);
-   //Se maneja la Promesa en caso de errores
+   const res = await fetch(url);
    return await handleError(res);
 }
 
-const handleError = response => {
-   if (!response.ok) {
-      throw new Error(response.statusText);
-   }
-   return response;
+const handleError = (res) => {
+   if (!res.ok) throw new Error(res.statusText);
+   return res;
 }
 
 //Retorna una Promesa que será manejada desde la invocación
-const buscarRazaPorNombre = nombreRaza => {
+const buscarRazaPorNombre = async nombreRaza => {
    const url = `https://dog.ceo/api/breed/${nombreRaza}/images/random`;
    //Se devuelve el manjejo de Fetch
-   return handleFetch(url)
-            .then(res => {
-               res.json();
-            })
-            .catch(error => {
-               error.json();
-            })
+   const respuesta = await handleFetch(url);
+   const resJSON = await respuesta.json();
+   return resJSON;
 };
 
 export default buscarRazaPorNombre;

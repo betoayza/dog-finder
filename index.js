@@ -11,14 +11,13 @@ hbs.registerPartials('./views', error => {
 });
 
 //CONFIGURACIONES
-//app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3000);
 
 
 //MIDDLEWARE
 
-//app.use(require('./rutas/rutas'));
 // Habilita la carpeta public para servir contenido estático
-//app.use(express.static(`${__dirname}/public`));
+//app.use(express.static('./public'));
 
 // Middleware para parsear el cuerpo de las peticiones HTTP
 app.use(express.urlencoded({
@@ -50,14 +49,16 @@ app.get('/home', (req, res) => { //en post vale el res.send()
 app.get('/resultadoBusqueda', async (req, res) => {
     try {
         const {
-            raza //debe coincidir con el name del input
-        } = req.body; //recibe la solicitd GET y extrae el nombreRaza
-        //Devuelve una Promesa
-        const respuesta = await buscarRazaPorNombre(raza);   
+               raza2 //debe coincidir con el name del input
+              } = req.body; //recibe la solicitd GET y extrae el valor de la clave "raza"
+        //Devuelve una Promesa que se guardará en "respuesta"
+        const respuesta = await buscarRazaPorNombre(raza2);   
+        console.log(respuesta);                                 
         //muestra la pagina con la respuesta 
-        res.render('resultadoBusqueda', { respuesta });
+        res.render('resultadoBusqueda', { respuesta } );
     } catch (error) {
-        res.send(error);
+        console.error(error);
+        res.send("El error es : " + error);
     }
 });
 
@@ -67,7 +68,6 @@ app.get('*', (req, res) => {
     //res.render('404');
     res.render('error404');
 });
-
 
 //SERVIDOR
 app.listen(3000, () => {
