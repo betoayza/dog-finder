@@ -50,12 +50,12 @@ app.get('/resultadoBusqueda', async (req, res) => {
     try {
         const {
                raza2 //debe coincidir con el name del input
-              } = req.body; //recibe la solicitd GET y extrae el valor de la clave "raza"
+              } = req.query; //recibe la solicitd GET y extrae el valor de la clave "raza"
         //Devuelve una Promesa que se guardará en "respuesta"
         const respuesta = await buscarRazaPorNombre(raza2);   
         console.log(respuesta);                                 
         //muestra la pagina con la respuesta 
-        res.render('resultadoBusqueda', { respuesta } );
+        res.render('resultadoBusqueda', { respuesta, raza2 } );
     } catch (error) {
         console.error(error);
         res.send("El error es : " + error);

@@ -10,15 +10,24 @@
 <!-- Push down content on small screens -->
 <div class="w3-hide-large" style="margin-top:83px"></div>
 
+<p>{{respuesta.message}} {{raza2}}</p>
+
 <p>Resultado: </p>
 <div class="w3-row">
-  {{#each razas}}
+  {{#each respuesta}}
   <div class="w3-col l2 m2 s2">
     <div class="w3-card-2 w3-dark-grey">
-      <div class="w3-container w3-center">
-        <h5>{{this.message}}</h5>
-        <!-- <img src="../public/imgs/foto.png" alt="No hay fotos de esta raza" style="width:15%"> -->
-        <p>{{this.status}}</p>        
+        <div class="w3-container w3-center">      
+        <img src= { url: {{{respuesta.message}}} } alt="No hay fotos de esta raza"  style="width:15%"/> 
+        <img src= {{{respuesta.message}}} alt="No hay fotos de esta raza" style="width:15%"/>
+        <img src= {{{respuesta.message}}} alt="No hay fotos de esta raza" style="width:15%"/>
+        <img src= {{{respuesta.message}}} alt="No hay fotos de esta raza" style="width:15%"/>
+        <img src= {{{respuesta.message}}} alt="No hay fotos de esta raza" style="width:15%"/>
+        <img src= {{{respuesta.message}}} alt="No hay fotos de esta raza" style="width:15%"/>
+        <img src= {{{respuesta.message}}} alt="No hay fotos de esta raza" style="width:15%"/>
+        <img src= {{{respuesta.message}}} alt="No hay fotos de esta raza" style="width:15%"/>
+        <img src= {{{respuesta.message}}} alt="No hay fotos de esta raza" style="width:15%"/>
+        <img src= {{{respuesta.message}}} alt="No hay fotos de esta raza" style="width:15%"/>      
       </div>
     </div>
   </div>
