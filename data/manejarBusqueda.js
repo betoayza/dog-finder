@@ -17,7 +17,8 @@ const handleError = (res) => {
 
 //Retorna una Promesa que será manejada desde la invocación
 const buscarRazaPorNombre = async nombreRaza => {
-   const url = `https://dog.ceo/api/breed/${nombreRaza}/images/random`;
+   //Buscar 10 imagenes por nombre raza
+   const url = `https://dog.ceo/api/breed/${nombreRaza}/images/random/10`;
    console.log(url);
    //Se devuelve el manjejo de Fetch
    const respuesta = await handleFetch(url);
