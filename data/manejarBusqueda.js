@@ -21,9 +21,26 @@ const buscarRazaPorNombre = async nombreRaza => {
    const url = `https://dog.ceo/api/breed/${nombreRaza}/images/random/10`;
    console.log(url);
    //Se devuelve el manjejo de Fetch
-   const respuesta = await handleFetch(url);
-   const resJSON = await respuesta.json();
-   return resJSON;
+   const razaRes = await handleFetch(url);
+   const razaResJSON = await respuesta.json();
+   return razaResJSON;
 };
 
-export default buscarRazaPorNombre;
+//realizar todas las busquedas
+const mostrarRazasDisponibles = async () => {   
+   //1) buscar todos los nombre razas
+   const url = `https://dog.ceo/api/breeds/list/all`;
+   console.log(url);
+   const razasTotales = await handleFetch(url);
+   const razasTotalesJSON = await razasTotales.json();
+   console.log(razasTotalesJSON);
+   const clavesPerros = await Object.keys(razasTotalesJSON.message);
+   console.log("La clave-Perro son: " , clavesPerros);
+   //const imagenPerroRaza = for (i=0; i<clavesPerros.length(); i++) {
+
+   //};
+   return clavesPerros;
+
+};
+
+export  {buscarRazaPorNombre, mostrarRazasDisponibles};

@@ -1,0 +1,41 @@
+
+{{> intro titulo="Catalogo Razas"}}
+
+{{> menu}}
+
+{{> header}}
+
+{{> inicioMain}}
+
+<!-- Push down content on small screens -->
+<div class="w3-hide-large" style="margin-top:83px"></div>
+
+<p>{{razasTotales.message}}</p>
+
+<script src=""></script>
+<!-- Mostrar Imagenes por cada Objeto Raza dentro del
+<p>Catalogo: </p>
+<div class="w3-row">
+  {{#each RazasTotales.message}}
+  <!--<div class="w3-col l2 m2 s2"> -->
+    <div class="w3-card-2 w3-dark-grey">
+        <div class="w3-container w3-center">     
+           <img src= "{{this}}" alt="No hay fotos de esta raza" width="200" height="241">  
+        </div>
+    </div>
+  <!-- </div> -->
+  <br>
+  {{/each}}
+</div>
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+  <span class="w3-button w3-black w3-xlarge w3-display-topright">×</span>
+  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+    <img id="img01" class="w3-image">
+    <p id="caption"></p>
+  </div>
+</div>
+
+{{> footer}}
+{{> cierre}}

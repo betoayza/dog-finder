@@ -1,7 +1,8 @@
 import express from 'express';
 import hbs from 'hbs';
 const app = express();
-import buscarRazaPorNombre from './data/manejarBusqueda.js';
+import { buscarRazaPorNombre, mostrarRazasDisponibles } from './data/manejarBusqueda.js';
+//import mostrarRazasDisponibles from './data/manejarBusqueda.js'; 
 
 // Establece motor de plantillas
 app.set('view engine', 'hbs');
@@ -33,11 +34,14 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/catalogoRazas', (req, res) => {
-    //res.send('Pagina Principal');
-    res.render('catalogoRazas', {
-        nombrePagina: 'CatalogoRazas'
-    });
+app.get('/catalogoRazas', async (req, res) => {
+    try{
+        const razasTotales = await mostrarRazasDisponibles();       
+        //console.log(razasTotales);       
+        res.render('catalogoRazas', { razasTotales } );
+    }catch(error){
+        res.send("Un error ha ocurrido!: " + error);
+    }    
 });
 
 //mostrar 'home' para peticion GET
@@ -61,6 +65,8 @@ app.get('/resultadoBusqueda', async (req, res) => {
         res.send("El error es : " + error);
     }
 });
+
+
 
 //Rutas por default para cualquier peticion GET
 app.get('*', (req, res) => {
