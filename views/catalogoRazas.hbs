@@ -10,16 +10,18 @@
 <!-- Push down content on small screens -->
 <div class="w3-hide-large" style="margin-top:83px"></div>
 
-<p>{{urlsImagenesRazas.message}}</p>
+<p>{{arrayObjetosRaza}}</p>
 
 
 <p>Catalogo: </p>
 <div class="w3-row">
-  {{#each urlsImagenesRazas.message}}
+  <!-- Se recorre el array -->
+  {{#each urlsImagenesRazas}}
   <!--<div class="w3-col l2 m2 s2"> -->
     <div class="w3-card-2 w3-dark-grey">
-        <div class="w3-container w3-center">     
-           <img src= "{{this}}" alt="No hay fotos de esta raza" width="200" height="241">  
+        <div class="w3-container w3-center">    
+           <p>{{this.raza.nombre}}</p> 
+           <img src= "{{this.raza.urlImagen}}" alt="No hay fotos de esta raza" width="200" height="241">  
         </div>
     </div>
   <!-- </div> -->

@@ -1,7 +1,7 @@
 import express from 'express';
 import hbs from 'hbs';
 const app = express();
-import {getDiezFotosPorNombreRaza, getImagenDeRaza, getTodasRazas, getURLsImagenesDeCadaRaza} from './data/manejarBusqueda.js';
+import {getDiezFotosPorNombreRaza, getImagenDeRaza, getTodasRazas, getArrayObjetosTodasRazas} from './data/manejarBusqueda.js';
 //import mostrarRazasDisponibles from './data/manejarBusqueda.js'; 
 
 // Establece motor de plantillas
@@ -30,15 +30,16 @@ app.use(express.urlencoded({
 app.get('/', (req, res) => {
     //res.send('Pagina Principal');
     res.render('home', {
-        nombrePagina: 'BuscadorDePerrosOnline'
+        nombrePagina: 'BuscaPerros.com'
     });
 });
 
 app.get('/catalogoRazas', async (req, res) => {
     try{
-        const urlsImagenesRazas = await getTodasRazas();       
+        //devuelve un array de objetos  
+        const arrayObjetosRaza = await getTodasRazas();     
         //console.log(razasTotales);       
-        res.render('catalogoRazas', { urlsImagenesRazas } );
+        res.render('catalogoRazas', { arrayObjetosRaza } );
     }catch(error){
         res.send("Un error ha ocurrido!: " + error);
     }    
@@ -55,9 +56,11 @@ app.get('/resultadoBusqueda', async (req, res) => {
         const {
                raza2 //debe coincidir con el name del input
               } = req.query; //recibe la solicitd GET y extrae el valor de la clave "raza"
+        //Pasar cualquier busqueda a minusculas para evitar el case-sensitive
+        
         //Devuelve una Promesa que se guardará en "respuesta"
-        const diezFotosRaza = await getDiezFotosPorNombreRaza(raza2);   
-        console.log(respuesta);                                 
+        const diezFotosRaza = await getDiezFotosPorNombreRaza(raza2.toLowerCase());   
+        console.log(diezFotosRaza);                                 
         //muestra la pagina con la respuesta 
         res.render('resultadoBusqueda', { diezFotosRaza, raza2 } );
     } catch (error) {

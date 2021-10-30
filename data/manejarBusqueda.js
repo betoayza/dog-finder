@@ -22,7 +22,7 @@ const getDiezFotosPorNombreRaza = async nombreRaza => {
    console.log(url);
    //Se devuelve el manjejo de Fetch
    const razaRes = await handleFetch(url);
-   const razaResJSON = await respuesta.json();
+   const razaResJSON = await razaRes.json();
    return razaResJSON;
 };
 
@@ -47,24 +47,36 @@ const getTodasRazas = async () => {
    const arrayNombresRazas = await Object.keys(razasTotalesJSON.message);
    console.log("Los nombres de las razas totales son: " , arrayNombresRazas);    
    //3) Obtener URLs de las imagenes de las razas
-   return await getURLsImagenesDeCadaRaza(arrayNombresRazas);
+   return await getArrayObjetosTodasRazas(arrayNombresRazas);
 };
 
-//Obtener URLs de las imagenes de las razas entrantes
-const getURLsImagenesDeCadaRaza = async (...arrayDeRazas) => { 
+//Obtener array de objetos raza con imagen + nombreRaza
+const getArrayObjetosTodasRazas = async (arrayRazas) => { 
+   /*
    const objAux = { //Objeto Aux para todas las urls de las imagenes de cada raza
-      "message": {}            
-   };  
-   const arrayRazas = arrayDeRazas[0]; 
+      "message": [url1, url2 ...]            
+   };
+   */
+   //chequear que paso el array   
    console.log(arrayRazas);
+   //Array auxiliar para devolver los objetos razas con sus imagenes
+   const arrayRazasConImagenes = [];     
    //recorrer el array con los nombres de razas 
    for (let i=0; i<arrayRazas.length; i++) {
-      let res = await getImagenDeRaza(arrayRazas[i])
-      let resJSON = await res.json();
+      //extraer la url de la imagen del objeto actual
+      let resJSON = await getImagenDeRaza(arrayRazas[i]); 
       let urlImagen = resJSON["message"];
-      objAux["message"].push(urlImagen); //agregar la url de la imagen de la raza actual
-   }
-   return objAux;
-}
+      //nombre de raza actual
+      let nombreRaza = arrayRazas[i];
+      //crear un objeto por cada imagen y nombre
+      let raza = {            
+                  urlImagen: urlImagen,
+                  nombre: nombreRaza
+                 }
+      //pasar el objeto raza a array de objetos razas con imagenes
+      arrayRazasConImagenes.push(raza); 
+   };
+   return arrayRazasConImagenes;   
+};
 
-export  {getDiezFotosPorNombreRaza, getImagenDeRaza, getTodasRazas, getURLsImagenesDeCadaRaza};
+export  {getDiezFotosPorNombreRaza, getImagenDeRaza, getTodasRazas, getArrayObjetosTodasRazas};
