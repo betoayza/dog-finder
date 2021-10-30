@@ -1,7 +1,7 @@
 import express from 'express';
 import hbs from 'hbs';
 const app = express();
-import { buscarRazaPorNombre, mostrarRazasDisponibles } from './data/manejarBusqueda.js';
+import {getDiezFotosPorNombreRaza, getImagenDeRaza, getTodasRazas, getURLsImagenesDeCadaRaza} from './data/manejarBusqueda.js';
 //import mostrarRazasDisponibles from './data/manejarBusqueda.js'; 
 
 // Establece motor de plantillas
@@ -36,9 +36,9 @@ app.get('/', (req, res) => {
 
 app.get('/catalogoRazas', async (req, res) => {
     try{
-        const razasTotales = await mostrarRazasDisponibles();       
+        const urlsImagenesRazas = await getTodasRazas();       
         //console.log(razasTotales);       
-        res.render('catalogoRazas', { razasTotales } );
+        res.render('catalogoRazas', { urlsImagenesRazas } );
     }catch(error){
         res.send("Un error ha ocurrido!: " + error);
     }    
@@ -56,10 +56,10 @@ app.get('/resultadoBusqueda', async (req, res) => {
                raza2 //debe coincidir con el name del input
               } = req.query; //recibe la solicitd GET y extrae el valor de la clave "raza"
         //Devuelve una Promesa que se guardará en "respuesta"
-        const respuesta = await buscarRazaPorNombre(raza2);   
+        const diezFotosRaza = await getDiezFotosPorNombreRaza(raza2);   
         console.log(respuesta);                                 
         //muestra la pagina con la respuesta 
-        res.render('resultadoBusqueda', { respuesta, raza2 } );
+        res.render('resultadoBusqueda', { diezFotosRaza, raza2 } );
     } catch (error) {
         console.error(error);
         res.send("El error es : " + error);

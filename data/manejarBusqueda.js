@@ -15,8 +15,8 @@ const handleError = (res) => {
    return res;
 }
 
-//Retorna una Promesa que será manejada desde la invocación
-const buscarRazaPorNombre = async nombreRaza => {
+//Obtener 10 fotos de una raza
+const getDiezFotosPorNombreRaza = async nombreRaza => {
    //Buscar 10 imagenes por nombre raza
    const url = `https://dog.ceo/api/breed/${nombreRaza}/images/random/10`;
    console.log(url);
@@ -26,21 +26,45 @@ const buscarRazaPorNombre = async nombreRaza => {
    return razaResJSON;
 };
 
-//realizar todas las busquedas
-const mostrarRazasDisponibles = async () => {   
-   //1) buscar todos los nombre razas
-   const url = `https://dog.ceo/api/breeds/list/all`;
+//Obtener una imagen de una raza
+const getImagenDeRaza = async nombreRaza => {
+   const url = `https://dog.ceo/api/breed/${nombreRaza}/images/random`;
    console.log(url);
-   const razasTotales = await handleFetch(url);
-   const razasTotalesJSON = await razasTotales.json();
-   console.log(razasTotalesJSON);
-   const clavesPerros = await Object.keys(razasTotalesJSON.message);
-   console.log("La clave-Perro son: " , clavesPerros);
-   //const imagenPerroRaza = for (i=0; i<clavesPerros.length(); i++) {
-
-   //};
-   return clavesPerros;
-
+   const respuesta = await handleFetch(url);
+   const respuestaJSON = await respuesta.json();
+   return await respuestaJSON;
 };
 
-export  {buscarRazaPorNombre, mostrarRazasDisponibles};
+//realizar todas las busquedas
+const getTodasRazas = async () => {   
+   const url = `https://dog.ceo/api/breeds/list/all`;
+   console.log(url);
+   //1) Consultar y obtener todas las razas
+   const razasTotales = await handleFetch(url); //Objeto Promesa-Response
+   const razasTotalesJSON = await razasTotales.json();  //Pasarlo a JSON
+   console.log(razasTotalesJSON);
+   //2) Extraer los nombres de las razas
+   const arrayNombresRazas = await Object.keys(razasTotalesJSON.message);
+   console.log("Los nombres de las razas totales son: " , arrayNombresRazas);    
+   //3) Obtener URLs de las imagenes de las razas
+   return await getURLsImagenesDeCadaRaza(arrayNombresRazas);
+};
+
+//Obtener URLs de las imagenes de las razas entrantes
+const getURLsImagenesDeCadaRaza = async (...arrayDeRazas) => { 
+   const objAux = { //Objeto Aux para todas las urls de las imagenes de cada raza
+      "message": {}            
+   };  
+   const arrayRazas = arrayDeRazas[0]; 
+   console.log(arrayRazas);
+   //recorrer el array con los nombres de razas 
+   for (let i=0; i<arrayRazas.length; i++) {
+      let res = await getImagenDeRaza(arrayRazas[i])
+      let resJSON = await res.json();
+      let urlImagen = resJSON["message"];
+      objAux["message"].push(urlImagen); //agregar la url de la imagen de la raza actual
+   }
+   return objAux;
+}
+
+export  {getDiezFotosPorNombreRaza, getImagenDeRaza, getTodasRazas, getURLsImagenesDeCadaRaza};
