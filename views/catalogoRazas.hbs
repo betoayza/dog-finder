@@ -10,18 +10,17 @@
 <!-- Push down content on small screens -->
 <div class="w3-hide-large" style="margin-top:83px"></div>
 
-<p>{{arrayObjetosRaza}}</p>
-
+<!-- <p>{{arrayObjetosRaza}} {{raza2}}</p> -->
 
 <p>Catalogo: </p>
 <div class="w3-row">
   <!-- Se recorre el array -->
-  {{#each urlsImagenesRazas}}
+  {{#each arrayObjetosRaza}}
   <!--<div class="w3-col l2 m2 s2"> -->
     <div class="w3-card-2 w3-dark-grey">
         <div class="w3-container w3-center">    
-           <p>{{this.raza.nombre}}</p> 
-           <img src= "{{this.raza.urlImagen}}" alt="No hay fotos de esta raza" width="200" height="241">  
+           <p>{{this.nombreRaza}}</p> 
+           <img src= "{{this.urlImagen}}" alt="No hay fotos de esta raza" width="200" height="241">  
         </div>
     </div>
   <!-- </div> -->

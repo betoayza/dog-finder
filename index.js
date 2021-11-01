@@ -39,7 +39,7 @@ app.get('/catalogoRazas', async (req, res) => {
         //devuelve un array de objetos  
         const arrayObjetosRaza = await getTodasRazas();     
         //console.log(razasTotales);       
-        res.render('catalogoRazas', { arrayObjetosRaza } );
+        res.render('catalogoRazas', { arrayObjetosRaza });
     }catch(error){
         res.send("Un error ha ocurrido!: " + error);
     }    
