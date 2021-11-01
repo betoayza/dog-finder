@@ -45,6 +45,18 @@ app.get('/catalogoRazas', async (req, res) => {
     }    
 });
 
+app.get('/diezImagenesRaza', async (req, res) => {
+    try{
+        const {} = req.query;
+        //devuelve un array de objetos  
+        const objetoDiezRazas = await getDiezFotosPorNombreRaza();     
+        //console.log(razasTotales);       
+        res.render('diezImagenesRaza', { objetoDiezRazas });
+    }catch(error){
+        res.send("Un error ha ocurrido!: " + error);
+    }    
+});
+
 //mostrar 'home' para peticion GET
 app.get('/home', (req, res) => { //en post vale el res.send()     
     res.render('home');

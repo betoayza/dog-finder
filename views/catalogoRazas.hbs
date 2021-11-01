@@ -20,13 +20,22 @@
     <div class="w3-card-2 w3-dark-grey">
         <div class="w3-container w3-center">    
            <p>{{this.nombreRaza}}</p> 
-           <img src= "{{this.urlImagen}}" alt="No hay fotos de esta raza" width="200" height="241">  
+           <a href= "./diezImagenesRaza.hbs"><img src= "{{this.urlImagen}}" alt="No hay fotos de esta raza" width="200" height="241" id="{{this.nombreRaza}}" onclick="enviarPorGet()"></a> 
         </div>
     </div>
   <!-- </div> -->
   <br>
   {{/each}}
 </div>
+
+<script type="text/javascript">
+  import { getDiezFotosPorNombreRaza } from './data/manejarBusqueda.js';
+  
+  const enviarPorGet = async () => {
+    const razaDiezImagenes = await getDiezFotosPorNombreRaza({{this.nombreRaza}});
+    
+  };
+</script>
 
 <!-- Modal for full size images on click-->
 <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
